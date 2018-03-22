@@ -9,6 +9,8 @@
 
 You need [Chainer](https://chainer.org/).
 
+You can try it onle [here](https://kaityo256.github.io/mnist_check/).
+
 ## Usage
 
     $ python train.py  # Train a model for MNIST data set using Chainer
