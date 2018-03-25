@@ -5,8 +5,8 @@ from model import Model
 
 def main(f_model):
     n_in = 28*28
-    #n_middle = 28*28
-    n_middle = 1000
+    n_middle = 28*28
+    #n_middle = 1000
     n_out = 10
     model = Model(n_in, n_middle, n_out)
     model.load(f_model)
