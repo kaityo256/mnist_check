@@ -35,7 +35,8 @@ Link.prototype.getReLU = function(x){
 
 Model = function(fs) {
   this.n_in = 28 * 28;
-  this.n_units = 28 * 28;
+  //this.n_units = 28 * 28;
+  this.n_units = 1000;
   this.n_out = 10;
   this.l1 = new Link(this.n_in, this.n_units, fs);
   this.l2 = new Link(this.n_units, this.n_units, fs);
