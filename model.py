@@ -5,10 +5,10 @@ from chainer import training
 from chainer.training import extensions
 
 class MLP(chainer.Chain):
-    def __init__(self, n_units, n_out):
+    def __init__(self, n_in, n_middle, n_out):
         super(MLP, self).__init__(
-            l1=L.Linear(None, n_units),
-            l2=L.Linear(None, n_units),
+            l1=L.Linear(None, n_middle),
+            l2=L.Linear(None, n_middle),
             l3=L.Linear(None, n_out)
             )
     def __call__(self, x):
@@ -16,9 +16,9 @@ class MLP(chainer.Chain):
         h2 = F.relu(self.l2(h1))
         return self.l3(h2)
 
-class Model:
-    def __init__(self, n_in):
-        self.model = L.Classifier(MLP(n_in, 10))
+class Model(object):
+    def __init__(self, n_in, n_middle, n_out):
+        self.model = L.Classifier(MLP(n_in, n_middle, n_out))
     def load(self, filename):
         chainer.serializers.load_npz(filename, self.model)
     def save(self, filename):

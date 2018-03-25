@@ -6,9 +6,9 @@ from model import Model
 
 def main():
     train, test = chainer.datasets.get_mnist()
-    m = Model(28*28)
+    m = Model(28*28, 1000, 10)
     epoch = 20
-    batchsize = 1000
+    batchsize = 100
     model = m.get_model()
     gpu = -1
     optimizer = chainer.optimizers.Adam()
