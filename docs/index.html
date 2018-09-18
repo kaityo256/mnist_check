@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8"/>
   <title>MNIST Test</title>
   <style type = "text/css">
   .button {
@@ -10,48 +11,44 @@
   div.result {
     font-size: 50px;
   }
+  .header {
+    font-size: 30px;
+  }
 </style>
 </head>
 <body>
 <H1> MNIST Check </H1>
+<!-- div><input type="file" id="file" accept=".dat"></div -->
+<div class="result" id="nowloading"> Now Loading ... Please Wait </div>
+
+<div><button type="button" onclick="allClear()" class="button">Clear</button></div>  
 <script type="text/javascript" src="draw.js"></script>
 <script type="text/javascript" src="model.js"></script>
-<canvas id='canvas' width=448 height=448  style="background-color:black;"></canvas>
-<canvas id='canvas2' width=448 height=448  style="background-color:black;"></canvas>
-<div>
-  <button type="button" onclick="check()" id ="checkButton" class="button" disabled>Check</button>
-  <button type="button" onclick="allClear()" class="button">Clear</button>
-</div>
-<div id="result" class="result">
-</div>
+<table>
+  <tr class="header">
+    <td>Please draw here</td>
+      <td>Input Image</td>
+      <td>Preprocessed Image</td>
+    </tr>
+  <tr>
+      <td><canvas id='canvas' width=420 height=420  style="background-color:black;"></canvas></td>
+      <td><canvas id='canvas2' width=420 height=420  style="background-color:black;"></canvas></td>
+      <td><canvas id='canvas3' width=420 height=420  style="background-color:black;"></canvas></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><div id="result" class="result"></div></td>
+      <td><div id="result2" class="result"></div></td>
+    </tr>
+</table>
+
+
 <script>
   window.onload = function(){
-    drawSetup($('canvas'),$('canvas2'));
+    drawSetup($('canvas'),$('canvas2'),$('canvas3'));
     loadData();
   }
-  var model;
-  function onFileSelect(e) { var f = e.target.files;
-    var reader = new FileReader();
-    reader.onload = function(filename){
-      var fs = new Float32Stream(reader.result);
-      model = new Model(fs);
-      $('checkButton').disabled = "";
-    }
-    reader.readAsArrayBuffer(f[0]);
-  }
-  $('file').addEventListener('change', onFileSelect, false);
 
-  function check(){
-    var x = getX($('canvas'));
-    var i = model.recognize(x);
-    $('result').innerHTML = "Your figure is " + i + "!";
-  }
-
-  function allClear(){
-    $('result').innerHTML = "";
-    canvasClear($('canvas'));
-    canvasClear($('canvas2'));
-  }
   function loadData(){
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'test.dat', true);
@@ -59,12 +56,38 @@
     xhr.onload = function (e){
       var arrayBuffer = xhr.response; 
       if(arrayBuffer){
-      var fs = new Float32Stream(arrayBuffer);
-      model = new Model(fs);
-      $('checkButton').disabled = "";
+        var fs = new Float32Stream(arrayBuffer);
+        model = new Model(fs);
+        $('nowloading').innerHTML = "";
       }
     }
     xhr.send(null);
+  }
+
+  var model;
+  function onFileSelect(e) { var f = e.target.files;
+    var reader = new FileReader();
+    reader.onload = function(filename){
+      var fs = new Float32Stream(reader.result);
+      model = new Model(fs);
+    }
+    reader.readAsArrayBuffer(f[0]);
+  }
+  $('file').addEventListener('change', onFileSelect, false);
+
+  function check(x, x2){
+    var i = model.recognize(x);
+    var i2 = model.recognize(x2);
+    $('result').innerHTML = "Your figure is " + i + "!";
+    $('result2').innerHTML = "Your figure is " + i2 + "!";
+  }
+
+  function allClear(){
+    $('result').innerHTML = "";
+    $('result2').innerHTML = "";
+    canvasClear($('canvas'));
+    canvasClear($('canvas2'));
+    canvasClear($('canvas3'));
   }
 
   function $(id){

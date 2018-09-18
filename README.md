@@ -15,17 +15,19 @@ You can try it onle [here](https://kaityo256.github.io/mnist_check/).
 
     $ python train.py  # Train a model for MNIST data set using Chainer
     $ python export.py # Convert test.model to test.dat
+    $ cp test.dat docs
 
-Then open `check.html` by a browser. You will see the following.
+Then open `docs/index.html` by a browser. You will see the following.
 
-![screen1.png](screen1.png)
+![image/screen1.png](image/screen1.png)
 
-First, the check button is disabled. Please load the trained model "test.dat". Then the check button is enabled.
+Proper permission is necessary to load local file by `XMLHttpRequest`.
+For example, you need `--allow-file-access-from-files` option for Chrome. Firefox is OK by default.
 
-Write some figures on the left canvas. The right canvas is the image which will be passed to the model.
+Write some figures on the left canvas. The middle canvas is the image which will be passed to the model. The right canvas shows an image which is preprocessed so that the center of mass of the image comes to the center.
 
-Push the check button. The model will recognize your figure.
+After you write a figure, the trained model will guess your figure. As you will see, the data with preprocess exhibits better accuracy.
 
-![screen2.png](screen2.png)
+![iamge/screen2.png](image/screen2.png)
 
 Enjoy!
