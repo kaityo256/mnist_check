@@ -7,9 +7,13 @@
 3. Import the model by JavaScript
 4. Then you can test the model by your hand-written figures!
 
-You need [Chainer](https://chainer.org/).
-
 You can try it onle [here](https://kaityo256.github.io/mnist_check/).
+
+An explanation article written in Japanese is [here](https://qiita.com/kaityo256/items/4ac935547afc8ba97f66).
+
+## Requirement
+
+You need [Chainer](https://chainer.org/).
 
 ## Usage
 
