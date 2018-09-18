@@ -25,10 +25,10 @@ function drawSetup(canvas, canvas2, canvas3){
     [xg, yg] = centerofmass(data20,20);
     xg -= 10.0;
     yg -= 10.0;
-    xg = Math.min(xg, 3.9);
-    yg = Math.min(yg, 3.9);
-    xg = Math.max(xg, -3.9);
-    yg = Math.max(yg, -3.9);
+    xg = Math.min(xg, 4.0);
+    yg = Math.min(yg, 4.0);
+    xg = Math.max(xg, -4.0);
+    yg = Math.max(yg, -4.0);
     var data28_s = datashift(xg, yg, data20);
     data2canvas(data28_s, 28, canvas3)
     check(data28, data28_s);
